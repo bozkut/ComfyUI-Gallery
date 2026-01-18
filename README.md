@@ -75,8 +75,9 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
 ```bash
-starty.bat
+start.bat
 ```
 🚀 First-Time Setup (Setup Wizard)
 
