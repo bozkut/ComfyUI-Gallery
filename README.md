@@ -1,23 +1,15 @@
 🐉 Comfy Gallery
 
-Comfy Gallery is a universal, local-first gallery for browsing, searching, and managing ComfyUI outputs — images and videos — across multiple drives and folders, with full metadata, prompt, and workflow support.
+A universal, local-first gallery for browsing, searching, and managing ComfyUI outputs (images & videos) across multiple folders and drives, with full prompt, metadata, and workflow support.
 
-Built for power users, artists, and studios running multiple ComfyUI setups.
+Designed for power users, AI artists, and studios running multiple ComfyUI setups.
 
-✨ Key Features
-🖼️ Media Browsing
+✨ Features
 
-View PNG, JPG, WebP, GIF, MP4, WebM, MOV, AVI outputs
+🖼️ Image & Video Support
+PNG, JPG, WebP, GIF, MP4, WebM, MOV, AVI
 
-High-performance thumbnail cache
-
-Lightbox viewer with keyboard navigation
-
-Video playback directly in the gallery
-
-🧠 ComfyUI Metadata Support
-
-Reads metadata from images and videos:
+🧠 ComfyUI Metadata Parsing
 
 Prompt & negative prompt
 
@@ -27,13 +19,17 @@ Sampler, steps, CFG, seed
 
 Resolution, file size, creation date
 
-One-click workflow JSON download
+📥 Workflow Extraction
+
+Download embedded ComfyUI workflow JSON with one click
 
 🔍 Advanced Search & Filtering
 
 Keyword search across:
 
-Prompt & negative prompt
+Prompt
+
+Negative prompt
 
 Model name
 
@@ -43,23 +39,21 @@ Seed & parameters
 
 Filters:
 
-File type (Image / Video)
+File type (image / video)
 
-Year & month (e.g. 2025 → January)
+Year & month
 
 Model
 
 Source folder
 
-Sorting by date, name, or file size
+Sorting by date, name, size
 
-📁 Multi-Folder & Multi-Drive Support
+📁 Multi-Folder / Multi-Drive Support
 
-Add unlimited output folders
+Unlimited output folders
 
-Works across different drives
-
-Each source has:
+Each folder has:
 
 Custom name
 
@@ -71,7 +65,7 @@ Missing folders are automatically flagged
 
 ♻️ Duplicate Detection
 
-Fast hash-based duplicate detection
+Fast hash-based detection
 
 Duplicates hidden by default
 
@@ -79,156 +73,198 @@ Optional toggle to show duplicates
 
 🔄 Refresh & Rescan
 
-Quick Refresh → scans only new files
+Quick refresh → scans only new files
 
-Full Rescan → rebuilds the index if needed
+Full rescan → rebuilds entire index
 
-Designed for large archives (10k+ files)
+🧙 Setup Wizard
 
-🧭 Setup Wizard (First Launch)
+First-run onboarding
 
-Guided 3-step onboarding:
+No manual config editing required
+
+📦 Installation
+Method 1: Download Release (Recommended)
+
+# Download the latest release from GitHub
+# Extract the ZIP anywhere on your machine
+# Run the application
+
+python comfy_gallery.py
+
+Method 2: Clone from GitHub
+git clone https://github.com/your-username/comfy-gallery.git
+cd comfy-gallery
+
+python -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+python comfy_gallery.py
+
+🚀 First-Time Setup (Setup Wizard)
+
+On first launch, Comfy Gallery automatically opens a 3-step setup wizard:
 
 Welcome
 
-Add output folders
+Add ComfyUI Output Folders
 
-Scan & launch
+Scan & Launch Gallery
 
-No config editing required
+Example folder paths:
 
-🧩 Technical Overview
+C:/ComfyUI/output
+D:/AI/ComfyUI/renders
+E:/Comfyui-Outputs/2026
 
-Backend: Python + Flask
-
-Database: SQLite
-
-Frontend: Pure HTML / CSS / JS (no frameworks)
-
-Video metadata: FFprobe (optional, recommended)
-
-Thumbnail cache: Local filesystem
-
-📂 Project Structure
-comfy-gallery/
-├── comfy_gallery.py        # Main Flask application
-├── requirements.txt        # Python dependencies
-├── start.bat               # Windows one-click launcher
-├── README.md               # Documentation
-├── LICENSE                 # MIT License
-├── .gitignore
-├── static/
-│   └── logo.jpg            # Comfy Gallery logo
-└── templates/
-    ├── setup.html          # First-run setup wizard
-    └── index.html          # Main gallery UI
-
-🚀 Installation (Windows)
-1️⃣ Download & Extract
-
-Download the ZIP and extract it anywhere on your machine.
-
-2️⃣ Start the App
-
-Double-click:
-
-start.bat
-
-
-This will:
-
-Create a virtual environment (if needed)
-
-Install dependencies
-
-Start the local server
-
-3️⃣ Open in Browser
-
-Your browser will open automatically, or visit:
-
+🎯 Usage
+Web Interface
+# Open in your browser
 http://localhost:8189
+From the UI you can:
 
-🧙 First-Time Setup
+Browse all outputs in a grid
 
-On first launch, you’ll see the Setup Wizard:
+Click any image or video to open the lightbox
 
-Welcome
+View full prompt & parameters
 
-Add your ComfyUI output folders
+Download workflow JSON
 
-Example:
+Copy prompt to clipboard
 
-C:\ComfyUI\output
-D:\AI\ComfyUI\renders
-E:\Archive\2025
+🔍 Search & Filters
+Keyword Search
+
+Searches across:
+
+Prompt
+
+Negative prompt
+
+Model
+
+Filename
+
+Seed & parameters
+Filters
+
+File Type: Image / Video
+
+Year: 2024 / 2025 / 2026
+
+Month: January → December
+
+🔄 Refresh & Rescan
+Model: FLUX, SDXL, Z-Image, etc.
+# Quick refresh (new files only)
+curl http://localhost:8189/api/refresh
+# Full rescan (rebuild index)
+curl http://localhost:8189/api/scan
 
 
-Launch Gallery
+📁 Folder Management (API)
+Validate a folder
 
-Folders can be added or removed later from the UI.
+curl -X POST http://localhost:8189/api/sources/validate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "path": "E:/ComfyUI/output"
+  }'
+  
+Add a folder
 
-➕ Adding New Output Folders
+curl -X POST http://localhost:8189/api/sources/add \
+  -H "Content-Type: application/json" \
+  -d '{
+    "path": "E:/ComfyUI/output",
+    "name": "Main ComfyUI",
+    "color": "#8b5cf6"
+  }'
 
-From the gallery UI:
+Remove a folder (files are NOT deleted)
+curl -X POST http://localhost:8189/api/sources/remove \
+  -H "Content-Type: application/json" \
+  -d '{
+    "path": "E:/ComfyUI/output"
+  }'
 
-Click “+ Add” in the Sources panel
+┌─────────────────────────┐
+│   ComfyUI Output Files  │
+│ (PNG / GIF / MP4 etc.)  │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│     Comfy Gallery        │
+│  - Metadata parsing     │
+│  - Prompt extraction    │
+│  - Workflow JSON        │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│   Web Gallery UI         │
+│  - Search / Filter       │
+│  - Lightbox viewer       │
+│  - Workflow download     │
+└─────────────────────────┘
 
-Paste the folder path
+🛠️ Requirements
 
-(Optional) Set a display name & color
+Python 3.10+
 
-Click Add & Scan
+ComfyUI (for generating outputs)
 
-Files are never modified or deleted.
+Optional (Recommended)
+# FFmpeg for video thumbnails
+ffmpeg -version
 
-🔄 Keeping the Gallery Updated
 
-🔄 Refresh
-Scans only newly added files (fast)
+Install if missing:
 
-📁 Rescan
-Rebuilds the entire index (safe but slower)
+# macOS
+brew install ffmpeg
 
-⚙️ Optional Dependencies
+# Ubuntu / Debian
+sudo apt install ffmpeg
 
-For best video support, install FFmpeg:
+# Windows (Chocolatey)
+choco install ffmpeg
 
-👉 https://ffmpeg.org/download.html
+🧹 Reset / Clean Start
+# Stop the app first (Ctrl+C)
 
-If FFmpeg is not available:
+rm -f gallery.db
+rm -rf static/galleryout
+rm -f config.json
 
-Videos still play
+python comfy_gallery.py
 
-Thumbnails fall back to placeholders
+🤝 Contributing
 
-🔐 Privacy & Security
+Contributions are welcome:
 
-100% local
+Bug reports
 
-No cloud, no telemetry
+Feature requests
 
-No external services
+UI improvements
 
-All data stays on your machine
+Metadata extensions
 
-📜 License
+Studio / pipeline features
 
-MIT License — free for personal and commercial use.
+📄 License
 
-🌱 Roadmap (Planned)
+MIT License — see LICENSE for details.
 
-Scene / Shot / Episode tagging (S## / P##)
+🙏 Credits
 
-After Effects / Harmony project awareness
-
-Prompt version comparison
-
-Export galleries (HTML / ZIP)
-
-Studio-level tagging & notes
-
-👤 Author
-
-Built by Bora Özkut
+Created by Bora Özkut
 AI Artist & Generative Workflow Designer
+
+⭐ If you find Comfy Gallery useful, consider starring the repository.
+
