@@ -79,6 +79,7 @@ pip install -r requirements.txt
 ```bash
 start.bat
 ```
+
 🚀 First-Time Setup (Setup Wizard)
 
 On first launch, Comfy Gallery automatically opens a 3-step setup wizard:
