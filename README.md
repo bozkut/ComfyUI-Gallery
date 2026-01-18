@@ -1,52 +1,32 @@
 🐉 Comfy Gallery
 
 A universal, local-first gallery for browsing, searching, and managing ComfyUI outputs (images & videos) across multiple folders and drives, with full prompt, metadata, and workflow support.
-
 Designed for power users, AI artists, and studios running multiple ComfyUI setups.
 
 ✨ Features
-
 🖼️ Image & Video Support
 PNG, JPG, WebP, GIF, MP4, WebM, MOV, AVI
 
 🧠 ComfyUI Metadata Parsing
-
 Prompt & negative prompt
-
 Model name
-
 Sampler, steps, CFG, seed
-
 Resolution, file size, creation date
 
 📥 Workflow Extraction
-
 Download embedded ComfyUI workflow JSON with one click
-
 🔍 Advanced Search & Filtering
-
 Keyword search across:
-
 Prompt
-
 Negative prompt
-
 Model name
-
 Filename
-
 Seed & parameters
-
 Filters:
-
 File type (image / video)
-
 Year & month
-
 Model
-
 Source folder
-
 Sorting by date, name, size
 
 📁 Multi-Folder / Multi-Drive Support
@@ -56,25 +36,16 @@ Unlimited output folders
 Each folder has:
 
 Custom name
-
 Color indicator
-
 Visible full path
-
 Missing folders are automatically flagged
-
 ♻️ Duplicate Detection
-
 Fast hash-based detection
-
 Duplicates hidden by default
-
 Optional toggle to show duplicates
 
 🔄 Refresh & Rescan
-
 Quick refresh → scans only new files
-
 Full rescan → rebuilds entire index
 
 🧙 Setup Wizard
@@ -89,20 +60,24 @@ Method 1: Download Release (Recommended)
 # Download the latest release from GitHub
 # Extract the ZIP anywhere on your machine
 # Run the application
-
+```
 python comfy_gallery.py
+```
 
 Method 2: Clone from GitHub
+```bash
 git clone https://github.com/your-username/comfy-gallery.git
 cd comfy-gallery
-
+```
+```bash
 python -m venv .venv
 source .venv/bin/activate
-
+```
 pip install -r requirements.txt
-
-python comfy_gallery.py
-
+```
+```bash
+starty.bat
+```
 🚀 First-Time Setup (Setup Wizard)
 
 On first launch, Comfy Gallery automatically opens a 3-step setup wizard:
